@@ -85,8 +85,11 @@ class ViewInspector:
             # An explicit docstring on the method or action.
             return self._get_description_section(view, method.lower(), formatting.dedent(smart_str(method_docstring)))
         else:
-            return self._get_description_section(view, getattr(view, 'action', method.lower()),
-                                                 view.get_view_description())
+            class_docstring = view.__class__.__doc__
+            if class_docstring:
+                return self._get_description_section(view, getattr(view, 'action', method.lower()),
+                                                     formatting.dedent(smart_str(class_docstring)))
+            return ''  # Return empty string if no docstring found
 
     def _get_description_section(self, view, header, description):
         lines = description.splitlines()
@@ -96,9 +99,9 @@ class ViewInspector:
         for line in lines:
             if self.header_regex.match(line):
                 current_section, separator, lead = line.partition(':')
-                sections[current_section.lower()] = lead.strip()
+                sections[current_section] = lead.strip()
             else:
-                sections[current_section.lower()] += '\n' + line
+                sections[current_section] += '\n' + line
 
         # TODO: SCHEMA_COERCE_METHOD_NAMES appears here and in `SchemaGenerator.get_keys`
         coerce_method_names = api_settings.SCHEMA_COERCE_METHOD_NAMES

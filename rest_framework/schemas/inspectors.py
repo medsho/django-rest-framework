@@ -44,7 +44,7 @@ class ViewInspector:
         if instance in self.instance_schemas:
             return self.instance_schemas[instance]
 
-        self.view = instance
+        self.view = owner
         return self
 
     def __set__(self, instance, other):

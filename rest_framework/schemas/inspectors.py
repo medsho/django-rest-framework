@@ -101,7 +101,7 @@ class ViewInspector:
                 sections[current_section] += '\n' + line
 
         # TODO: SCHEMA_COERCE_METHOD_NAMES appears here and in `SchemaGenerator.get_keys`
-        coerce_method_names = api_settings.SCHEMA_COERCE_METHOD_NAMES
+        coerce_method_names = api_settings.SCHEMA_CONVERT_METHOD_NAMES
         if header in sections:
             return sections[header].strip()
         if header in coerce_method_names:

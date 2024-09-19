@@ -98,7 +98,7 @@ class ViewInspector:
                 current_section, separator, lead = line.partition(':')
                 sections[current_section.lower()] = lead.strip()
             else:
-                sections[current_section] += '\n' + line
+                sections[current_section.lower()] += '\n' + line
 
         # TODO: SCHEMA_COERCE_METHOD_NAMES appears here and in `SchemaGenerator.get_keys`
         coerce_method_names = api_settings.SCHEMA_COERCE_METHOD_NAMES

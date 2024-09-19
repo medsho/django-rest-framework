@@ -96,7 +96,7 @@ class ViewInspector:
         for line in lines:
             if self.header_regex.match(line):
                 current_section, separator, lead = line.partition(':')
-                sections[current_section] = lead.strip()
+                sections[current_section.lower()] = lead.strip()
             else:
                 sections[current_section] += '\n' + line
 
